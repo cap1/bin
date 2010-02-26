@@ -1,0 +1,4 @@
+#!/bin/bash
+layout=$(setxkbmap -print | grep symbols | perl -e '$a=<>; $a =~ s/.*?\+(.*)\+.*/$1/; chomp($a);print $a;')
+
+echo $layout

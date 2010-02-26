@@ -1,0 +1,6 @@
+#!/bin/bash
+echo -n ">> status BAT0 at "
+date +%T
+grep present: /proc/acpi/battery/BAT0/state
+grep char /proc/acpi/battery/BAT0/state
+grep rem /proc/acpi/battery/BAT0/state 

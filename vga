@@ -1,0 +1,29 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+#####
+#small hack for xrandr for a second monitor
+#####
+
+my $param = "null";				
+if ( $ARGV[0] ) {
+	$param = shift(@ARGV);
+}
+
+my $status = `/usr/bin/xrandr`;
+ 
+if ( $param eq "clone"and $status =~ /VGA1 connected/ ) {
+     system("/usr/bin/xrandr --output LVDS1 --auto --output VGA1 --auto --same-as LVDS1");
+	 system("/usr/bin/nitrogen --restore");
+}
+elsif ( $param eq "on"and $status =~ /VGA1 connected/ ) {
+	system("/usr/bin/xrandr --output LVDS1 --auto --output VGA1 --auto --left-of LVDS1");
+	 system("/usr/bin/nitrogen --restore");
+}
+elsif ( $param eq "off" and $status =~ /VGA1 connected/ ) {
+	system("/usr/bin/xrandr --output VGA1 --off");
+}
+else {
+		print ">> somethings wrong here ... \n>>  this could mean wrong parametes or vga not/already connected\n";
+}

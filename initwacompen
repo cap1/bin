@@ -1,0 +1,5 @@
+#!/bin/bash
+   xsetwacom set stylus Button1 "button 1"
+   xsetwacom set stylus Button2 "button 3"
+   xsetwacom set stylus Button3 "button 3"
+

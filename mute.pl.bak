@@ -1,0 +1,94 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+#simple toggle for Speaker with amixer an console output
+
+
+#grab commandline arguments and...
+if ( $ARGV[0] )
+{
+	my $arg = shift(@ARGV);
+	if ( $arg eq "status" || $arg eq "?" )	#...print status of Speaker
+	{
+		if (&getstatus)
+		{
+			print ">> Speaker is [off]\n";
+		}
+		else
+		{
+			print ">> Speaker is [on]\n";
+		}
+	}
+	elsif ($arg eq "on")	#...set Speaker on
+	{
+		&SpeakerOn;
+		print ">> Speaker is [on]\n";
+	}
+	elsif ($arg eq "off")	#...or off
+	{
+		&SpeakerOff;
+		print ">> Speaker is [off]\n";
+	}
+	elsif ( $arg eq "-h" || $arg =~ /.+/) #... print help if needed
+	{
+		print ">> usage: mute [?,status,-h,on,off] -- without arguments it toggles on/off\n"; 
+	}
+	exit;
+}
+else
+{
+&togglespeaker;		#toggle the settings when nothing is given
+}
+
+#>end of script<#
+
+
+
+
+####-----####
+#subroutines#
+####-----####
+
+sub getstatus	#get info about the settings off the Speaker
+{				#	returns 0==true if Speaker is on
+	my $totest;
+	$totest = `/usr/bin/amixer get Speaker`;
+	chomp($totest);
+	if ( $totest =~ /off/ )
+	{
+		return 1;		#perl-logic, 0 == true
+	}
+	return 0;
+}
+
+###
+sub SpeakerOn	#does what the name implies...
+{
+		system("/usr/bin/amixer -q set Speaker unmute");
+}
+sub SpeakerOff
+{
+		system("/usr/bin/amixer -q set Speaker mute");
+}
+
+###
+sub togglespeaker	#does what the name implies... 
+{					#	and returns 0 when Speaker is on
+	if (&getstatus)	#	also prints what it has done
+	{
+		&SpeakerOn;
+		print(">> Speaker unmuted\n");	
+		return 0;
+	}	
+	else
+	{
+		&SpeakerOff;
+		print(">> Speaker muted\n");
+		return 1;
+	}
+}
+
+#####
+#EOF#
+#####

@@ -1,0 +1,41 @@
+587 -- Function to extract charge percentage
+588 function read_battery_life(number)
+589   return function(format)
+590             local fh = io.popen('acpi')
+591             local output = fh:read("*a")
+592             fh:close()
+593             count = 0
+594             if output == "" then
+595                 return {0}
+596             end
+597             for s in string.gmatch(output, "(%d+)%%") do
+598                if number == count then
+599                   return {s}
+600                end
+601                count = count + 1
+602             end
+603          end
+604 end
+605 -- Display one vertical progressbar per battery
+606 for battery=0, batteries-1 do
+607 
+608   batterygraphwidget = widget({ type = 'progressbar',
+609                                 name = 'batterygraphwidget',
+610                                 align = 'right' })
+611   batterygraphwidget.height = 0.85
+612   batterygraphwidget.width = 8
+613   batterygraphwidget.bg = '#333333'
+614   batterygraphwidget.border_color = '#0a0a0a'
+615   batterygraphwidget.vertical = true
+616   batterygraphwidget:bar_properties_set('battery',
+617                                         { fg = '#AEC6D8',
+618                                           fg_center = '#285577',
+619                                           fg_end = '#285577',
+620                                           fg_off = '#222222',
+621                                           vertical_gradient = true,
+622                                           horizontal_gradient = false,
+623                                           ticks_count = 0,
+624                                           ticks_gap = 0 })
+625 
+626   wicked.register(batterygraphwidget, read_battery_life(battery), '$1', 1, 'battery')
+627 end

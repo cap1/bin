@@ -1,0 +1,17 @@
+#!/bin/bash
+ 
+actuallayout=$(getxkbmap)
+
+if [[ $actuallayout = "us" ]]
+then
+	newlayout="de"
+	setxkbmap -layout de
+					                         
+	else 
+	if [[ $actuallayout = "de" ]]
+	then
+		newlayout="us"
+		setxkbmap -layout us
+	fi
+fi
+echo "keylayoutbox.text = \"$newlayout\"" | awesome-client

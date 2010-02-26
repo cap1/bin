@@ -1,0 +1,3 @@
+xmodmap ~/.Xmodmap
+xbindkeys
+
