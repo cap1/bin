@@ -1,0 +1,23 @@
+README for my bin dir
+
+Contains some scripts for my use 
+feel free to have fun with them ;)
+
+###
+vga
+
+requires: xrandr, perl
+
+perl script to turn on VGA1 on my thinkpad
+	$>vga [left|right|clone|off]
+
+###
+mute
+
+requires: alsamixer, perl
+
+mutes the speaker on my thinkpad, NOT the Master
+
+	$>mute 						#toggles on and off, when no @ARGV is given
+	$>mute [on|off|status|?]	
+
