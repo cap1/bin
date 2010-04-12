@@ -1,5 +1,0 @@
-#!/bin/bash
-
-
-sed -i "s/netset = .*/netset = $1/" ~/.config/awesome/rc.lua
-echo 'awesome.restart()' | awesome-client 
