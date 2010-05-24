@@ -15,15 +15,14 @@ my $status = `/usr/bin/xrandr`;
  
 if ( $param eq "clone"and $status =~ /VGA1 connected/ ) {
      system("/usr/bin/xrandr --output LVDS1 --auto --output VGA1 --auto --same-as LVDS1");
-	 system("/usr/bin/nitrogen --restore");
 }
 elsif ( ($param eq "right" or $param eq "r" ) and $status =~ /VGA1 connected/ ) {
 	system("/usr/bin/xrandr --output LVDS1 --auto --output VGA1 --auto --right-of LVDS1");
-	 system("/usr/bin/nitrogen --restore");
+	system("/usr/bin/nitrogen --restore");
 }
 elsif ( ($param eq "left" or $param eq "l" ) and $status =~ /VGA1 connected/ ) {
 	system("/usr/bin/xrandr --output LVDS1 --auto --output VGA1 --auto --left-of LVDS1");
-	 system("/usr/bin/nitrogen --restore");
+	system("/usr/bin/nitrogen --restore");
 }
 elsif ( $param eq "off" and $status =~ /VGA1 connected/ ) {
 	system("/usr/bin/xrandr --output VGA1 --off");
